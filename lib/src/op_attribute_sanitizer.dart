@@ -27,12 +27,14 @@ class OpAttributes {
     AlignType? align,
     DirectionType? direction,
     num? indent,
+    num? listDepth,
     String? table,
     bool? mentions,
     Mention? mention,
     String? target,
     String? rel,
     bool? renderAsBlock,
+    num? lineHeight,
   }) {
     this.background = background;
     this.color = color;
@@ -52,12 +54,14 @@ class OpAttributes {
     this.align = align;
     this.direction = direction;
     this.indent = indent;
+    this.listDepth = listDepth;
     this.table = table;
     this.mentions = mentions;
     this.mention = mention;
     this.target = target;
     this.rel = rel;
     this.renderAsBlock = renderAsBlock;
+    this.lineHeight = lineHeight;
   }
 
   final Map<String, dynamic> attrs = {};
@@ -146,6 +150,10 @@ class OpAttributes {
   set indent(num? v) =>
       v == null ? attrs.remove('indent') : attrs['indent'] = v;
 
+  num? get listDepth => _getNumber('list-depth');
+  set listDepth(num? v) =>
+      v == null ? attrs.remove('list-depth') : attrs['list-depth'] = v;
+
   String? get table => attrs['table'];
   set table(String? v) =>
       v == null ? attrs.remove('table') : attrs['table'] = v;
@@ -174,6 +182,10 @@ class OpAttributes {
   bool? get renderAsBlock => attrs['renderAsBlock'];
   set renderAsBlock(bool? v) =>
       v == null ? attrs.remove('renderAsBlock') : attrs['renderAsBlock'] = v;
+
+  num? get lineHeight => _getNumber('line-height');
+  set lineHeight(num? v) =>
+      v == null ? attrs.remove('line-height') : attrs['line-height'] = v;
 
   dynamic operator [](String key) => attrs[key];
   void operator []=(String key, dynamic value) {
@@ -241,12 +253,14 @@ class OpAttributeSanitizer {
     final align = dirtyAttrs.align;
     final direction = dirtyAttrs.direction;
     final indent = dirtyAttrs.indent;
+    final listDepth = dirtyAttrs.listDepth;
     final mentions = dirtyAttrs.mentions;
     final mention = dirtyAttrs.mention;
     final width = dirtyAttrs.width;
     final target = dirtyAttrs.target;
     final rel = dirtyAttrs.rel;
     final codeBlock = dirtyAttrs['code-block'];
+    final lineHeight = dirtyAttrs.lineHeight;
 
     const sanitizedAttrs = [
       ...booleanAttrs,
@@ -260,12 +274,14 @@ class OpAttributeSanitizer {
       'align',
       'direction',
       'indent',
+      'list-depth',
       'mentions',
       'mention',
       'width',
       'target',
       'rel',
       'code-block',
+      'line-height',
     ];
 
     for (var prop in booleanAttrs) {
@@ -362,6 +378,14 @@ class OpAttributeSanitizer {
 
     if (isTruthy(indent)) {
       cleanAttrs.indent = min(indent!, 30);
+    }
+
+    if (isTruthy(listDepth)) {
+      cleanAttrs.listDepth = min(listDepth!, 30);
+    }
+
+    if (isTruthy(lineHeight)) {
+      cleanAttrs.lineHeight = lineHeight;
     }
 
     if (isTruthy(mentions) && isTruthy(mention)) {

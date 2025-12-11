@@ -196,9 +196,9 @@ class QuillDeltaToHtmlConverter {
   }
 
   String _renderListItem(ListItem li) {
-    //if (!isOuterMost) {
+    li.item.op.attributes.listDepth = li.item.op.attributes.indent;
     li.item.op.attributes.indent = 0;
-    //}
+
     final converter = OpToHtmlConverter(li.item.op, _converterOptions);
     final parts = converter.getHtmlParts();
     final liElementsHtml = renderInlines(li.item.ops, false);

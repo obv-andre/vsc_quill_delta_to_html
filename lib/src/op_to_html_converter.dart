@@ -49,6 +49,7 @@ final defaultInlineStyles = InlineStyles({
       return null;
     }
   }),
+  'line-height': InlineStyleType(fn: (value, op) => 'line-height:$value'),
   'list': InlineStyleType(map: {
     'checked': "list-style-type:'\\2611';padding-left: 0.5em;",
     'unchecked': "list-style-type:'\\2610';padding-left: 0.5em;",
@@ -186,7 +187,14 @@ class OpToHtmlConverter {
       return [];
     }
 
-    var propsArr = ['indent', 'align', 'direction', 'font', 'size'];
+    var propsArr = [
+      'line-height',
+      'indent',
+      'align',
+      'direction',
+      'font',
+      'size'
+    ];
     if (options.allowBackgroundClasses == true) {
       propsArr.add('background');
     }
@@ -221,6 +229,7 @@ class OpToHtmlConverter {
     }
     if (inlineStyles) {
       propsArr.addAll([
+        ['line-height'],
         ['indent'],
         ['align', 'text-align'],
         ['direction'],
@@ -387,6 +396,7 @@ class OpToHtmlConverter {
     // blocks
     final positionTag = options.paragraphTag;
     final blocks = [
+      ['line-height', positionTag],
       ['blockquote'],
       ['code-block', 'pre'],
       ['list', options.listItemTag],
