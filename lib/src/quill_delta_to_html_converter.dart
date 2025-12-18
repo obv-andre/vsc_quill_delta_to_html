@@ -145,7 +145,6 @@ class QuillDeltaToHtmlConverter {
     final groups = getGroupedOps();
     return groups.map((group) {
       if (group is ListGroup) {
-        print(group);
         return _renderWithCallbacks(
             GroupType.list, group, () => _renderList(group));
       }
@@ -202,7 +201,6 @@ class QuillDeltaToHtmlConverter {
 
     final converter = OpToHtmlConverter(li.item.op, _converterOptions);
     final parts = converter.getHtmlParts();
-    print(parts.openingTag);
     final liElementsHtml = renderInlines(li.item.ops, false);
     return parts.openingTag +
         liElementsHtml +
