@@ -49,11 +49,11 @@ final defaultInlineStyles = InlineStyles({
       return null;
     }
   }),
-  'line-height': InlineStyleType(fn: (value, op) => 'line-height:$value'),
   'list': InlineStyleType(map: {
     'checked': "list-style-type:'\\2611';padding-left: 0.5em;",
     'unchecked': "list-style-type:'\\2610';padding-left: 0.5em;",
   }),
+  'line-height': InlineStyleType(fn: (value, op) => 'line-height:$value'),
 });
 
 class OpConverterOptions {
@@ -188,12 +188,12 @@ class OpToHtmlConverter {
     }
 
     var propsArr = [
-      'line-height',
       'indent',
       'align',
       'direction',
       'font',
       'size'
+          'line-height',
     ];
     if (options.allowBackgroundClasses == true) {
       propsArr.add('background');
@@ -229,13 +229,13 @@ class OpToHtmlConverter {
     }
     if (inlineStyles) {
       propsArr.addAll([
-        ['line-height'],
         ['indent'],
         ['align', 'text-align'],
         ['direction'],
         ['font', 'font-family'],
         ['size'],
         ['list'],
+        ['line-height'],
       ]);
     }
 
@@ -396,7 +396,6 @@ class OpToHtmlConverter {
     // blocks
     final positionTag = options.paragraphTag;
     final blocks = [
-      ['line-height', positionTag],
       ['blockquote'],
       ['code-block', 'pre'],
       ['list', options.listItemTag],
@@ -404,6 +403,7 @@ class OpToHtmlConverter {
       ['align', positionTag],
       ['direction', positionTag],
       ['indent', positionTag],
+      ['line-height', positionTag],
     ];
     for (final item in blocks) {
       var firstItem = item[0];
