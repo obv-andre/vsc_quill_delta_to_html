@@ -35,6 +35,8 @@ class OpAttributes {
     String? rel,
     bool? renderAsBlock,
     num? lineHeight,
+    num? marginTop,
+    num? marginBottom,
   }) {
     this.background = background;
     this.color = color;
@@ -62,6 +64,8 @@ class OpAttributes {
     this.rel = rel;
     this.renderAsBlock = renderAsBlock;
     this.lineHeight = lineHeight;
+    this.marginTop = marginTop;
+    this.marginBottom = marginBottom;
   }
 
   final Map<String, dynamic> attrs = {};
@@ -187,6 +191,14 @@ class OpAttributes {
   set lineHeight(num? v) =>
       v == null ? attrs.remove('line-height') : attrs['line-height'] = v;
 
+  num? get marginTop => _getNumber('margin-top');
+  set marginTop(num? v) =>
+      v == null ? attrs.remove('margin-top') : attrs['margin-top'] = v;
+
+  num? get marginBottom => _getNumber('margin-bottom');
+  set marginBottom(num? v) =>
+      v == null ? attrs.remove('margin-bottom') : attrs['margin-bottom'] = v;
+
   dynamic operator [](String key) => attrs[key];
   void operator []=(String key, dynamic value) {
     attrs[key] = value;
@@ -261,6 +273,8 @@ class OpAttributeSanitizer {
     final rel = dirtyAttrs.rel;
     final codeBlock = dirtyAttrs['code-block'];
     final lineHeight = dirtyAttrs.lineHeight;
+    final marginTop = dirtyAttrs.marginTop;
+    final marginBottom = dirtyAttrs.marginBottom;
 
     const sanitizedAttrs = [
       ...booleanAttrs,
@@ -282,6 +296,8 @@ class OpAttributeSanitizer {
       'rel',
       'code-block',
       'line-height',
+      'margin-top',
+      'margin-bottom',
     ];
 
     for (var prop in booleanAttrs) {
@@ -386,6 +402,14 @@ class OpAttributeSanitizer {
 
     if (isTruthy(lineHeight)) {
       cleanAttrs.lineHeight = lineHeight;
+    }
+
+    if (isTruthy(marginTop)) {
+      cleanAttrs.marginTop = marginTop;
+    }
+
+    if (isTruthy(marginBottom)) {
+      cleanAttrs.marginBottom = marginBottom;
     }
 
     if (isTruthy(mentions) && isTruthy(mention)) {

@@ -35,6 +35,8 @@ class DeltaInsertOp {
 
   bool isBlockAttribute() {
     return attributes.lineHeight != null ||
+        attributes.marginBottom != null ||
+        attributes.marginTop != null ||
         attributes.align != null ||
         attributes.direction != null ||
         attributes.indent != null;
