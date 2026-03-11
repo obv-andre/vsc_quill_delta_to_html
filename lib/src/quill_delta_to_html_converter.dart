@@ -190,7 +190,23 @@ class QuillDeltaToHtmlConverter {
 
   String _renderList(ListGroup list) {
     final firstItem = list.items[0];
-    return makeStartTag(getListTag(firstItem.item.op)) +
+    final listType = ((firstItem.item.op.attributes['list']) as String?);
+    final styles = [
+      'margin-top: 0',
+      'margin-bottom: 0',
+    ];
+
+    if (listType == 'bullet') {
+      final indent =
+          ((firstItem.item.op.attributes['indent'] as int?) ?? 0) % 3;
+      var type = 'disc';
+      if (indent == 1) type = 'circle';
+      if (indent == 2) type = 'square';
+      styles.add('list-style-type: $type');
+    }
+
+    return makeStartTag(getListTag(firstItem.item.op),
+            [TagKeyValue(key: 'style', value: styles.join(';'))]) +
         list.items.map((li) => _renderListItem(li)).join('') +
         makeEndTag(getListTag(firstItem.item.op));
   }
@@ -204,8 +220,8 @@ class QuillDeltaToHtmlConverter {
     final liElementsHtml = renderInlines(li.item.ops, false);
     return parts.openingTag +
         liElementsHtml +
-        (li.innerList != null ? _renderList(li.innerList!) : '') +
-        parts.closingTag;
+        parts.closingTag +
+        (li.innerList != null ? _renderList(li.innerList!) : '');
   }
 
   String _renderTable(TableGroup table) {
