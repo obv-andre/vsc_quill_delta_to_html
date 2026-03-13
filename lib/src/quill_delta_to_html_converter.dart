@@ -190,23 +190,8 @@ class QuillDeltaToHtmlConverter {
 
   String _renderList(ListGroup list) {
     final firstItem = list.items[0];
-    final attributes = firstItem.item.op.attributes;
-    final listType = ((attributes['list']) as String?);
-    final styles = [
-      'padding-top: 0',
-      'padding-bottom: 0',
-    ];
 
-    if (listType == 'bullet') {
-      final indent = ((attributes['indent'] as int?) ?? 0) % 3;
-      var type = 'disc';
-      if (indent == 1) type = 'circle';
-      if (indent == 2) type = 'square';
-      styles.add('list-style-type: $type');
-    }
-
-    return makeStartTag(getListTag(firstItem.item.op),
-            [TagKeyValue(key: 'style', value: styles.join(';'))]) +
+    return makeStartTag(getListTag(firstItem.item.op)) +
         list.items.map((li) => _renderListItem(li)).join('') +
         makeEndTag(getListTag(firstItem.item.op));
   }
