@@ -190,15 +190,15 @@ class QuillDeltaToHtmlConverter {
 
   String _renderList(ListGroup list) {
     final firstItem = list.items[0];
-    final listType = ((firstItem.item.op.attributes['list']) as String?);
+    final attributes = firstItem.item.op.attributes;
+    final listType = ((attributes['list']) as String?);
     final styles = [
       'margin-top: 0',
       'margin-bottom: 0',
     ];
 
     if (listType == 'bullet') {
-      final indent =
-          ((firstItem.item.op.attributes['indent'] as int?) ?? 0) % 3;
+      final indent = ((attributes['indent'] as int?) ?? 0) % 3;
       var type = 'disc';
       if (indent == 1) type = 'circle';
       if (indent == 2) type = 'square';
@@ -214,6 +214,12 @@ class QuillDeltaToHtmlConverter {
   String _renderListItem(ListItem li) {
     li.item.op.attributes.listDepth = li.item.op.attributes.indent;
     li.item.op.attributes.indent = 0;
+
+    final firstChildAttributes = li.item.ops.firstOrNull?.attributes;
+    li.item.op.attributes.bold = firstChildAttributes?.bold;
+    li.item.op.attributes.italic = firstChildAttributes?.italic;
+    li.item.op.attributes.size = firstChildAttributes?.size;
+    li.item.op.attributes.color = firstChildAttributes?.color;
 
     final converter = OpToHtmlConverter(li.item.op, _converterOptions);
     final parts = converter.getHtmlParts();
