@@ -54,9 +54,9 @@ final defaultInlineStyles = InlineStyles({
     'unchecked': "list-style-type:'\\2610';padding-left: 0.5em;",
   }),
   'line-height': InlineStyleType(fn: (value, op) => 'line-height:$value'),
-  'margin-top': InlineStyleType(fn: (value, op) => 'margin-top:${value}pt'),
+  'margin-top': InlineStyleType(fn: (value, op) => 'margin-top:${value}px'),
   'margin-bottom':
-      InlineStyleType(fn: (value, op) => 'margin-bottom:${value}pt'),
+      InlineStyleType(fn: (value, op) => 'margin-bottom:${value}px'),
   'bold': InlineStyleType(
       fn: (value, op) => 'font-weight: ${value == 'true' ? 'bold' : 'normal'}'),
   'italic': InlineStyleType(
