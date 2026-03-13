@@ -79,6 +79,7 @@ class OpConverterOptions {
     this.customTagAttributes,
     this.customCssClasses,
     this.customCssStyles,
+    this.defaultFontSize,
   }) {
     if (inlineStyles == null && inlineStylesFlag == true) {
       inlineStyles = InlineStyles({});
@@ -98,6 +99,7 @@ class OpConverterOptions {
   Map<String, String>? Function(DeltaInsertOp op)? customTagAttributes;
   List<String>? Function(DeltaInsertOp op)? customCssClasses;
   List<String>? Function(DeltaInsertOp op)? customCssStyles;
+  String? defaultFontSize;
 }
 
 class HtmlParts {
@@ -201,9 +203,6 @@ class OpToHtmlConverter {
       'direction',
       'font',
       'size',
-      'line-height',
-      'margin-top',
-      'margin-bottom',
     ];
     if (options.allowBackgroundClasses == true) {
       propsArr.add('background');
@@ -228,7 +227,7 @@ class OpToHtmlConverter {
   }
 
   List<String> getCssStyles() {
-    final attrs = op.attributes;
+    final attrs = op.attributes..size ??= options.defaultFontSize;
 
     final propsArr = [
       ['color']
