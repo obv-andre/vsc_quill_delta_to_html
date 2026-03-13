@@ -54,9 +54,9 @@ final defaultInlineStyles = InlineStyles({
     'unchecked': "list-style-type:'\\2610';padding-left: 0.5em;",
   }),
   'line-height': InlineStyleType(fn: (value, op) => 'line-height:$value'),
-  'margin-top': InlineStyleType(fn: (value, op) => 'margin-top:${value}px'),
-  'margin-bottom':
-      InlineStyleType(fn: (value, op) => 'margin-bottom:${value}px'),
+  'padding-top': InlineStyleType(fn: (value, op) => 'padding-top:${value}px'),
+  'padding-bottom':
+      InlineStyleType(fn: (value, op) => 'padding-bottom:${value}px'),
   'bold': InlineStyleType(
       fn: (value, op) => 'font-weight: ${value == 'true' ? 'bold' : 'normal'}'),
   'italic': InlineStyleType(
@@ -245,8 +245,8 @@ class OpToHtmlConverter {
         ['size'],
         ['list'],
         ['line-height'],
-        ['margin-top'],
-        ['margin-bottom'],
+        ['padding-top'],
+        ['padding-bottom'],
         ['bold'],
         ['italic'],
       ]);
@@ -417,8 +417,8 @@ class OpToHtmlConverter {
       ['direction', positionTag],
       ['indent', positionTag],
       ['line-height', positionTag],
-      ['margin-top', positionTag],
-      ['margin-bottom', positionTag],
+      ['padding-top', positionTag],
+      ['padding-bottom', positionTag],
     ];
     for (final item in blocks) {
       var firstItem = item[0];

@@ -193,8 +193,8 @@ class QuillDeltaToHtmlConverter {
     final attributes = firstItem.item.op.attributes;
     final listType = ((attributes['list']) as String?);
     final styles = [
-      'margin-top: 0',
-      'margin-bottom: 0',
+      'padding-top: 0',
+      'padding-bottom: 0',
     ];
 
     if (listType == 'bullet') {

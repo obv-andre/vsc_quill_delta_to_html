@@ -35,8 +35,8 @@ class OpAttributes {
     String? rel,
     bool? renderAsBlock,
     num? lineHeight,
-    num? marginTop,
-    num? marginBottom,
+    num? paddingTop,
+    num? paddingBottom,
   }) {
     this.background = background;
     this.color = color;
@@ -64,8 +64,8 @@ class OpAttributes {
     this.rel = rel;
     this.renderAsBlock = renderAsBlock;
     this.lineHeight = lineHeight;
-    this.marginTop = marginTop;
-    this.marginBottom = marginBottom;
+    this.paddingTop = paddingTop;
+    this.paddingBottom = paddingBottom;
   }
 
   final Map<String, dynamic> attrs = {};
@@ -191,13 +191,13 @@ class OpAttributes {
   set lineHeight(num? v) =>
       v == null ? attrs.remove('line-height') : attrs['line-height'] = v;
 
-  num? get marginTop => _getNumber('margin-top');
-  set marginTop(num? v) =>
-      v == null ? attrs.remove('margin-top') : attrs['margin-top'] = v;
+  num? get paddingTop => _getNumber('padding-top');
+  set paddingTop(num? v) =>
+      v == null ? attrs.remove('padding-top') : attrs['padding-top'] = v;
 
-  num? get marginBottom => _getNumber('margin-bottom');
-  set marginBottom(num? v) =>
-      v == null ? attrs.remove('margin-bottom') : attrs['margin-bottom'] = v;
+  num? get paddingBottom => _getNumber('padding-bottom');
+  set paddingBottom(num? v) =>
+      v == null ? attrs.remove('padding-bottom') : attrs['padding-bottom'] = v;
 
   dynamic operator [](String key) => attrs[key];
   void operator []=(String key, dynamic value) {
@@ -273,8 +273,8 @@ class OpAttributeSanitizer {
     final rel = dirtyAttrs.rel;
     final codeBlock = dirtyAttrs['code-block'];
     final lineHeight = dirtyAttrs.lineHeight;
-    final marginTop = dirtyAttrs.marginTop;
-    final marginBottom = dirtyAttrs.marginBottom;
+    final paddingTop = dirtyAttrs.paddingTop;
+    final paddingBottom = dirtyAttrs.paddingBottom;
 
     const sanitizedAttrs = [
       ...booleanAttrs,
@@ -296,8 +296,8 @@ class OpAttributeSanitizer {
       'rel',
       'code-block',
       'line-height',
-      'margin-top',
-      'margin-bottom',
+      'padding-top',
+      'padding-bottom',
     ];
 
     for (var prop in booleanAttrs) {
@@ -404,12 +404,12 @@ class OpAttributeSanitizer {
       cleanAttrs.lineHeight = lineHeight;
     }
 
-    if (isTruthy(marginTop)) {
-      cleanAttrs.marginTop = marginTop;
+    if (isTruthy(paddingTop)) {
+      cleanAttrs.paddingTop = paddingTop;
     }
 
-    if (isTruthy(marginBottom)) {
-      cleanAttrs.marginBottom = marginBottom;
+    if (isTruthy(paddingBottom)) {
+      cleanAttrs.paddingBottom = paddingBottom;
     }
 
     if (isTruthy(mentions) && isTruthy(mention)) {
