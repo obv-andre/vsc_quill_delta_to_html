@@ -57,6 +57,11 @@ final defaultInlineStyles = InlineStyles({
   'margin-top': InlineStyleType(fn: (value, op) => 'margin-top:${value}px'),
   'margin-bottom':
       InlineStyleType(fn: (value, op) => 'margin-bottom:${value}px'),
+  'bold': InlineStyleType(
+      fn: (value, op) => 'font-weight: ${value == 'true' ? 'bold' : 'normal'}'),
+  'italic': InlineStyleType(
+      fn: (value, op) =>
+          'font-style: ${value == 'true' ? 'italic' : 'normal'}'),
 });
 
 class OpConverterOptions {
@@ -243,6 +248,8 @@ class OpToHtmlConverter {
         ['line-height'],
         ['margin-top'],
         ['margin-bottom'],
+        ['bold'],
+        ['italic'],
       ]);
     }
 
@@ -444,8 +451,6 @@ class OpToHtmlConverter {
       ['link', 'a'],
       ['mentions', 'a'],
       ['script'],
-      ['bold', 'strong'],
-      ['italic', 'em'],
       ['strike', 's'],
       ['underline', 'u'],
       ['code'],
