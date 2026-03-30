@@ -201,10 +201,11 @@ class QuillDeltaToHtmlConverter {
     li.item.op.attributes.indent = 0;
 
     final firstChildAttributes = li.item.ops.firstOrNull?.attributes;
-    li.item.op.attributes.bold = firstChildAttributes?.bold;
-    li.item.op.attributes.italic = firstChildAttributes?.italic;
-    li.item.op.attributes.size = firstChildAttributes?.size;
-    li.item.op.attributes.color = firstChildAttributes?.color;
+    li.item.op.attributes.bold = firstChildAttributes?.bold ?? false;
+    li.item.op.attributes.italic = firstChildAttributes?.italic ?? false;
+    li.item.op.attributes.size =
+        firstChildAttributes?.size ?? _converterOptions.defaultFontSize;
+    li.item.op.attributes.color = firstChildAttributes?.color ?? 'initial';
 
     final converter = OpToHtmlConverter(li.item.op, _converterOptions);
     final parts = converter.getHtmlParts();
