@@ -211,8 +211,8 @@ class QuillDeltaToHtmlConverter {
     final liElementsHtml = renderInlines(li.item.ops, false);
     return parts.openingTag +
         liElementsHtml +
-        parts.closingTag +
-        (li.innerList != null ? _renderList(li.innerList!) : '');
+        (li.innerList != null ? _renderList(li.innerList!) : '') +
+        parts.closingTag;
   }
 
   String _renderTable(TableGroup table) {
