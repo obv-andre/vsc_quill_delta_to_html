@@ -227,7 +227,9 @@ class OpToHtmlConverter {
   }
 
   List<String> getCssStyles() {
-    final attrs = op.attributes..size ??= options.defaultFontSize;
+    final attrs = op.attributes.script == null
+        ? (op.attributes..size ??= options.defaultFontSize)
+        : op.attributes;
 
     final propsArr = [
       ['color']
